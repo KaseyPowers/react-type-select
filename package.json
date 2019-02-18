@@ -1,0 +1,36 @@
+{
+  "name": "react-type-select",
+  "version": "1.0.0",
+  "description": "Wrapping component for react-select with type searching options",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start-storybook -p 9001 -c docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaseyPowers/react-type-select.git"
+  },
+  "keywords": [
+    "react",
+    "react-select",
+    "type",
+    "type-search"
+  ],
+  "author": "Kasye Powers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KaseyPowers/react-type-select/issues"
+  },
+  "homepage": "https://github.com/KaseyPowers/react-type-select#readme",
+  "dependencies": {
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-select": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/react": "^4.1.11",
+    "babel-loader": "^8.0.5"
+  }
+}
