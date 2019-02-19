@@ -1,6 +1,6 @@
-import { mergeValidations } from "./validate";
+import mergeValidations from "./validate";
 
-export default function mergeOptions(a, b) {
+function mergeOptions(a = {}, b = {}) {
   const { validate: validateA, ...restA } = a;
   const { validate: validateB, ...restB } = b;
 
@@ -10,3 +10,5 @@ export default function mergeOptions(a, b) {
     validate: mergeValidations(validateA, validateB)
   };
 }
+
+export default mergeOptions;

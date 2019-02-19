@@ -1,5 +1,5 @@
 // assume validations are standardized structure
-export function mergeValidations(a = {}, b = {}) {
+function mergeValidations(a = {}, b = {}) {
   const output = {};
   const sharedKeys = [];
 
@@ -40,3 +40,5 @@ export function mergeValidations(a = {}, b = {}) {
 
   return output;
 }
+
+export default mergeValidations;
