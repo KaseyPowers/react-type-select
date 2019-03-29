@@ -1,14 +1,14 @@
 import minLength from "./minLength";
 
-const allValidators = {
+const validators = {
   minLength
 };
 
-const validators = [];
+const validatorsArray = [];
 // go through validators, sure if they have showKey true, convert it to a string
-Object.keys(allValidators).forEach(key => {
-  const validator = allValidators[key];
-  validators.push(validator);
+Object.keys(validators).forEach(key => {
+  const validator = validators[key];
+  validatorsArray.push(validator);
 
   const useKey = validator.key || key;
   if (!validator.key) {
@@ -20,12 +20,10 @@ Object.keys(allValidators).forEach(key => {
   }
 });
 
-export default allValidators;
-
-export const validators;
-export const validatorKeys = validators
+const validatorKeys = validatorsArray
   .reduce((output, { key, showKey, otherKeys }) => {
     return output.concat(key, showKey, otherKeys);
-  })
+  }, [])
   .filter(val => !!val);
 
+export { validators, validatorsArray, validatorKeys };

@@ -1,17 +1,19 @@
 import { validatorsArray, validatorKeys } from "../../validate";
-import { mergeValidations } from "../utils";
 
 function isConfigObj(value, otherKeys = []) {
   return (
-    value instanceof Function ||
-    otherKeys
-      .concat(["valid", "show", "message"])
-      .some(configKey => configKey && typeof value[configKey] !== "undefined")
+    value &&
+    (value instanceof Function ||
+      otherKeys
+        .concat(["valid", "show", "message"])
+        .some(
+          configKey => configKey && typeof value[configKey] !== "undefined"
+        ))
   );
 }
 
 // take a validation config and put it into standardized format for clean merging
-export function standardizeValidationObj(validation = {}) {
+function standardizeValidationObj(validation = {}) {
   const output = {};
   const customKeys = Object.keys(validation).filter(
     key => validatorKeys.indexOf(key) < 0
@@ -22,15 +24,18 @@ export function standardizeValidationObj(validation = {}) {
 
   validatorsArray.forEach(validator => {
     const { key, showKey, otherKeys, buildConfig, configKeys = [] } = validator;
-    let outputValue = {};
     const currentValue = validation[key];
+    if (!currentValue) {
+      return;
+    }
+    let outputValue = {};
     // if current value is a function, assume custom implementation and skip buildConfig
     if (currentValue instanceof Function) {
       output[key] = currentValue;
       return;
     }
     // or has keys associated with a config object, use this
-    if (isConfigObj(value, configKeys)) {
+    if (isConfigObj(currentValue, configKeys)) {
       outputValue = currentValue;
     } else {
       outputValue.valid = currentValue;
@@ -60,7 +65,7 @@ export function standardizeValidationObj(validation = {}) {
   return output;
 }
 
-export function standardizeValidationInOption(option) {
+function standardizeValidationInOption(option) {
   const output = {};
   const { validate: rawCurrentValidate, ...rest } = option;
   const currentValidate = standardizeValidationObj(rawCurrentValidate);
@@ -81,3 +86,5 @@ export function standardizeValidationInOption(option) {
 
   return output;
 }
+
+export { isConfigObj, standardizeValidationObj, standardizeValidationInOption };
